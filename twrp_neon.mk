@@ -23,16 +23,16 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/base.mk)
 # Installs gsi keys into ramdisk, to boot a developer GSI with verified boot.
 $(call inherit-product, $(SRC_TARGET_DIR)/product/gsi_keys.mk)
 
-# Inherit from selene device
-$(call inherit-product, device/xiaomi/selene/device.mk)
+# Inherit from neon device
+$(call inherit-product, device/realme/neon/device.mk)
 
 # Inherit some common Omni stuff.
 $(call inherit-product, vendor/twrp/config/common.mk)
 
 # Device identifier. This must come after all inclusions
-PRODUCT_DEVICE := selene
-PRODUCT_NAME := twrp_selene
-PRODUCT_BRAND := Redmi
-PRODUCT_MODEL := 21061119AG
-PRODUCT_MANUFACTURER := xiaomi
-PRODUCT_RELEASE_NAME := Redmi 10
+PRODUCT_DEVICE := neon
+PRODUCT_NAME := twrp_neon
+PRODUCT_BRAND := realme
+PRODUCT_MODEL := RMX3630
+PRODUCT_MANUFACTURER := realme
+PRODUCT_RELEASE_NAME := realme 10
