@@ -1,21 +1,6 @@
 {
   "Attributes": [
     {
-      "Name": "LowCapacityCPUs",
-      "Controller": "cpuset",
-      "File": "background/cpus"
-    },
-    {
-      "Name": "HighCapacityCPUs",
-      "Controller": "cpuset",
-      "File": "foreground/cpus"
-    },
-    {
-      "Name": "MaxCapacityCPUs",
-      "Controller": "cpuset",
-      "File": "top-app/cpus"
-    },
-    {
       "Name": "MemLimit",
       "Controller": "memory",
       "File": "memory.limit_in_bytes"
@@ -31,50 +16,22 @@
       "File": "memory.swappiness"
     },
     {
-      "Name": "UClampMin",
-      "Controller": "cpu",
-      "File": "cpu.uclamp.min"
-    },
-    {
-      "Name": "UClampMax",
-      "Controller": "cpu",
-      "File": "cpu.uclamp.max"
-    },
-    {
-      "Name": "UClampLatencySensitive",
-      "Controller": "cpu",
-      "File": "cpu.uclamp.latency_sensitive"
-    },
-    {
       "Name": "FreezerState",
       "Controller": "freezer",
-      "File": "cgroup.freeze"
+      "File": "frozen/freezer.state"
     }
   ],
 
   "Profiles": [
     {
-      "Name": "HighEnergySaving",
+      "Name": "Frozen",
       "Actions": [
         {
           "Name": "JoinCgroup",
           "Params":
           {
-            "Controller": "cpu",
-            "Path": "background"
-          }
-        }
-      ]
-    },
-    {
-      "Name": "Frozen",
-      "Actions": [
-        {
-          "Name": "SetAttribute",
-          "Params":
-          {
-            "Name": "FreezerState",
-            "Value": "1"
+            "Controller": "freezer",
+            "Path": "frozen"
           }
         }
       ]
@@ -83,331 +40,16 @@
       "Name": "Unfrozen",
       "Actions": [
         {
-          "Name": "SetAttribute",
-          "Params":
-          {
-            "Name": "FreezerState",
-            "Value": "0"
-          }
-        }
-      ]
-    },
-    {
-      "Name": "NormalPerformance",
-      "Actions": [
-        {
           "Name": "JoinCgroup",
           "Params":
           {
-            "Controller": "cpu",
-            "Path": "system"
-          }
-        }
-      ]
-    },
-    {
-      "Name": "ServicePerformance",
-      "Actions": [
-        {
-          "Name": "JoinCgroup",
-          "Params":
-          {
-            "Controller": "cpu",
-            "Path": "system-background"
-          }
-        }
-      ]
-    },
-    {
-      "Name": "HighPerformance",
-      "Actions": [
-        {
-          "Name": "JoinCgroup",
-          "Params":
-          {
-            "Controller": "cpu",
-            "Path": "foreground"
-          }
-        }
-      ]
-    },
-    {
-      "Name": "MaxPerformance",
-      "Actions": [
-        {
-          "Name": "JoinCgroup",
-          "Params":
-          {
-            "Controller": "cpu",
-            "Path": "top-app"
-          }
-        }
-      ]
-    },
-    {
-      "Name": "RealtimePerformance",
-      "Actions": [
-        {
-          "Name": "JoinCgroup",
-          "Params":
-          {
-            "Controller": "cpu",
-            "Path": "rt"
-          }
-        }
-      ]
-    },
-    {
-      "Name": "CameraServicePerformance",
-      "Actions": [
-        {
-          "Name": "JoinCgroup",
-          "Params":
-          {
-            "Controller": "cpu",
-            "Path": "camera-daemon"
-          }
-        }
-      ]
-    },
-    {
-      "Name": "NNApiHALPerformance",
-      "Actions": [
-        {
-          "Name": "JoinCgroup",
-          "Params":
-          {
-            "Controller": "cpu",
-            "Path": "nnapi-hal"
-          }
-        }
-      ]
-    },
-
-    {
-      "Name": "CpuPolicySpread",
-      "Actions": [
-        {
-          "Name": "SetAttribute",
-          "Params":
-          {
-            "Name": "UClampLatencySensitive",
-            "Value": "1"
-          }
-        }
-      ]
-    },
-    {
-      "Name": "CpuPolicyPack",
-      "Actions": [
-        {
-          "Name": "SetAttribute",
-          "Params":
-          {
-            "Name": "UClampLatencySensitive",
-            "Value": "0"
-          }
-        }
-      ]
-    },
-
-    {
-      "Name": "VrKernelCapacity",
-      "Actions": [
-        {
-          "Name": "JoinCgroup",
-          "Params":
-          {
-            "Controller": "cpuset",
+            "Controller": "freezer",
             "Path": ""
           }
         }
       ]
     },
-    {
-      "Name": "VrServiceCapacityLow",
-      "Actions": [
-        {
-          "Name": "JoinCgroup",
-          "Params":
-          {
-            "Controller": "cpuset",
-            "Path": "system/background"
-          }
-        }
-      ]
-    },
-    {
-      "Name": "VrServiceCapacityNormal",
-      "Actions": [
-        {
-          "Name": "JoinCgroup",
-          "Params":
-          {
-            "Controller": "cpuset",
-            "Path": "system"
-          }
-        }
-      ]
-    },
-    {
-      "Name": "VrServiceCapacityHigh",
-      "Actions": [
-        {
-          "Name": "JoinCgroup",
-          "Params":
-          {
-            "Controller": "cpuset",
-            "Path": "system/performance"
-          }
-        }
-      ]
-    },
-    {
-      "Name": "VrProcessCapacityLow",
-      "Actions": [
-        {
-          "Name": "JoinCgroup",
-          "Params":
-          {
-            "Controller": "cpuset",
-            "Path": "application/background"
-          }
-        }
-      ]
-    },
-    {
-      "Name": "VrProcessCapacityNormal",
-      "Actions": [
-        {
-          "Name": "JoinCgroup",
-          "Params":
-          {
-            "Controller": "cpuset",
-            "Path": "application"
-          }
-        }
-      ]
-    },
-    {
-      "Name": "VrProcessCapacityHigh",
-      "Actions": [
-        {
-          "Name": "JoinCgroup",
-          "Params":
-          {
-            "Controller": "cpuset",
-            "Path": "application/performance"
-          }
-        }
-      ]
-    },
-    {
-      "Name": "ProcessCapacityLow",
-      "Actions": [
-        {
-          "Name": "JoinCgroup",
-          "Params":
-          {
-            "Controller": "cpuset",
-            "Path": "background"
-          }
-        }
-      ]
-    },
-    {
-      "Name": "CameraProcessCapacityLow",
-      "Actions": [
-        {
-          "Name": "JoinCgroup",
-          "Params":
-          {
-            "Controller": "cpuset",
-            "Path": "camera-background"
-          }
-        }
-      ]
-    },
-    {
-      "Name": "ProcessCapacityNormal",
-      "Actions": [
-        {
-          "Name": "JoinCgroup",
-          "Params":
-          {
-            "Controller": "cpuset",
-            "Path": ""
-          }
-        }
-      ]
-    },
-    {
-      "Name": "ProcessCapacityHigh",
-      "Actions": [
-        {
-          "Name": "JoinCgroup",
-          "Params":
-          {
-            "Controller": "cpuset",
-            "Path": "foreground"
-          }
-        }
-      ]
-    },
-    {
-      "Name": "ProcessCapacityMax",
-      "Actions": [
-        {
-          "Name": "JoinCgroup",
-          "Params":
-          {
-            "Controller": "cpuset",
-            "Path": "top-app"
-          }
-        }
-      ]
-    },
 
-    {
-      "Name": "ServiceCapacityLow",
-      "Actions": [
-        {
-          "Name": "JoinCgroup",
-          "Params":
-          {
-            "Controller": "cpuset",
-            "Path": "system-background"
-          }
-        }
-      ]
-    },
-    {
-      "Name": "ServiceCapacityRestricted",
-      "Actions": [
-        {
-          "Name": "JoinCgroup",
-          "Params":
-          {
-            "Controller": "cpuset",
-            "Path": "restricted"
-          }
-        }
-      ]
-    },
-
-    {
-      "Name": "CameraServiceCapacity",
-      "Actions": [
-        {
-          "Name": "JoinCgroup",
-          "Params":
-          {
-            "Controller": "cpuset",
-            "Path": "camera-daemon"
-          }
-        }
-      ]
-    },
 
     {
       "Name": "LowIoPriority",
@@ -469,7 +111,7 @@
           "Name": "SetTimerSlack",
           "Params":
           {
-            "Slack": "5000000"
+            "Slack": "50000"
           }
         }
       ]
@@ -482,33 +124,6 @@
           "Params":
           {
             "Slack": "50000"
-          }
-        }
-      ]
-    },
-
-    {
-      "Name": "SFMainPolicy",
-      "Actions": [
-        {
-          "Name": "JoinCgroup",
-          "Params":
-          {
-            "Controller": "cpuset",
-            "Path": "system-background"
-          }
-        }
-      ]
-    },
-    {
-      "Name": "SFRenderEnginePolicy",
-      "Actions": [
-        {
-          "Name": "JoinCgroup",
-          "Params":
-          {
-            "Controller": "cpuset",
-            "Path": "system-background"
           }
         }
       ]
@@ -596,6 +211,32 @@
           }
         }
       ]
+    },
+    {
+      "Name": "FreezerThawed",
+      "Actions": [
+        {
+          "Name": "SetAttribute",
+          "Params":
+          {
+            "Name": "FreezerState",
+            "Value": "THAWED"
+          }
+        }
+      ]
+    },
+    {
+      "Name": "FreezerFrozen",
+      "Actions": [
+        {
+          "Name": "SetAttribute",
+          "Params":
+          {
+            "Name": "FreezerState",
+            "Value": "FROZEN"
+          }
+        }
+      ]
     }
   ],
 
@@ -615,10 +256,6 @@
     {
       "Name": "SCHED_SP_TOP_APP",
       "Profiles": [ "MaxPerformance", "MaxIoPriority", "TimerSlackNormal" ]
-    },
-    {
-      "Name": "SCHED_SP_SYSTEM",
-      "Profiles": [ "ServicePerformance", "LowIoPriority", "TimerSlackNormal" ]
     },
     {
       "Name": "SCHED_SP_RT_APP",
@@ -647,14 +284,6 @@
     {
       "Name": "CPUSET_SP_RESTRICTED",
       "Profiles": [ "ServiceCapacityRestricted", "TimerSlackNormal" ]
-    },
-    {
-      "Name": "Dex2OatBootComplete",
-      "Profiles": [ "SCHED_SP_BACKGROUND" ]
-    },
-    {
-      "Name": "CPUSET_SP_CAMERA_BACKGROUND",
-      "Profiles": [ "CameraProcessCapacityLow"]
     }
   ]
 }
