@@ -29,13 +29,6 @@ $(call inherit-product, device/realme/neon/device.mk)
 # Inherit some common Omni stuff.
 $(call inherit-product, vendor/twrp/config/common.mk)
 
-# Extra required packages
-PRODUCT_PACKAGES += \
-    fastbootd \
-    android.hardware.fastboot@1.0-impl-mock \
-    android.hardware.fastboot@1.0-impl-mock.recovery \
-    libion.recovery
-
 # Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := neon
 PRODUCT_NAME := twrp_neon
@@ -44,11 +37,5 @@ PRODUCT_MODEL := RMX3630
 PRODUCT_MANUFACTURER := realme
 PRODUCT_RELEASE_NAME := realme 10
 
-
-# HACK: Set vendor patch level
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.vendor.build.security_patch=2099-12-31
-
-PRODUCT_SYSTEM_PROPERTY_BLACKLIST := \
-    ro.product.device \
-    ro.product.name
+# Dynamic
+PRODUCT_USE_DYNAMIC_PARTITIONS := true
